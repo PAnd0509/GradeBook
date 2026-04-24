@@ -1,4 +1,4 @@
-# GradeBook
+# GradeBook - Backend
 
 GradeBook es una API REST desarrollada con Java y Spring Boot para la gestión académica de alumnos, materias y notas.
 
