@@ -56,19 +56,40 @@ academic-grades-api/
 
 ## Variables de entorno
 
-El proyecto utiliza variables de entorno para configurar la conexión a la base de datos y el puerto de la API.
+El proyecto utiliza variables de entorno para configurar la conexión a la base de datos, puertos y la URL de la API. Estas variables se aplican tanto al backend como al frontend.
 
 Ejemplo de archivo `.env`:
 
 ```env
+# Configuración de PostgreSQL
 POSTGRES_DB=academic_grades
 DB_USER=academic_user
 DB_PASSWORD=academic_pass
 DB_PORT=5432
 DB_URI=jdbc:postgresql://db:5432/academic_grades
 DB_DRIVER=org.postgresql.Driver
+
+# Configuración del backend
 SERVER_PORT=8080
+
+# Configuración del frontend
+FRONTEND_PORT=5173
+VITE_API_URL=/api
 ```
+
+### Descripción de variables
+
+| Variable | Descripción | Valor por defecto |
+|----------|-------------|-------------------|
+| `POSTGRES_DB` | Nombre de la base de datos PostgreSQL | `academic_grades` |
+| `DB_USER` | Usuario de PostgreSQL | `academic_user` |
+| `DB_PASSWORD` | Contraseña de PostgreSQL | `academic_pass` |
+| `DB_PORT` | Puerto interno de PostgreSQL en Docker | `5432` |
+| `DB_URI` | URI de conexión a la base de datos | `jdbc:postgresql://db:5432/academic_grades` |
+| `DB_DRIVER` | Driver de PostgreSQL | `org.postgresql.Driver` |
+| `SERVER_PORT` | Puerto del backend (API) | `8080` |
+| `FRONTEND_PORT` | Puerto del frontend (React) | `5173` |
+| `VITE_API_URL` | URL base de la API para el frontend | `/api` |
 
 El repositorio incluye un archivo `.env.example`, se puede crear el archivo `.env` copiando su contenido:
 
@@ -76,18 +97,23 @@ El repositorio incluye un archivo `.env.example`, se puede crear el archivo `.en
 cp .env.example .env
 ```
 
+> **Nota**: La variable `VITE_API_URL=/api` permite que el frontend se comunique con el backend a través de un proxy inverso en Docker. Para desarrollo local sin Docker, deberías usar `http://localhost:8080/api`.
+
 ## Ejecución del proyecto
 
-Desde la raíz del proyecto, ejecutar:
+Para ejecutar la aplicación completa (backend, frontend y base de datos), desde la raíz de la carpeta `academic-grades-api`, ejecutar:
 
 ```bash
 docker compose up --build
 ```
 
-Este comando levanta dos servicios:
+Este comando levanta tres servicios:
 
-* `academic_grades_db`: base de datos PostgreSQL.
+* `academic_grades_db`: Base de datos PostgreSQL.
 * `academic_grades_api`: API REST desarrollada con Spring Boot.
+* `academic_grades_frontend`: Aplicación frontend desarrollada con React y TypeScript.
+
+> **Nota**: El archivo `docker-compose.yml` también configura y levanta el frontend. Asegúrate de estar en la carpeta correcta.
 
 Para verificar que los contenedores estén activos:
 
@@ -95,11 +121,11 @@ Para verificar que los contenedores estén activos:
 docker ps
 ```
 
-La API queda disponible en:
+Los servicios quedan disponibles en:
 
-```txt
-http://localhost:8080
-```
+* **Frontend**: `http://localhost:5173`
+* **Backend / API**: `http://localhost:8080`
+* **Base de datos**: PostgreSQL en puerto 5432 (interno en Docker)
 
 ## Documentación Swagger
 
@@ -143,7 +169,7 @@ Después de ejecutar estos comandos, la base de datos quedará cargada con los d
 
 ## Detener el proyecto
 
-Para detener los contenedores:
+Para detener todos los contenedores (frontend, backend y base de datos):
 
 ```bash
 docker compose down

@@ -1,73 +1,113 @@
-# React + TypeScript + Vite
+# GradeBook - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend de la aplicación GradeBook desarrollado con React, TypeScript y Vite para la gestión académica de estudiantes, materias y calificaciones.
 
-Currently, two official plugins are available:
+La interfaz proporciona una experiencia de usuario interactiva y responsiva para gestionar toda la información académica de manera centralizada.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tecnologías utilizadas
 
-## React Compiler
+- React 19
+- TypeScript
+- Vite
+- React Router DOM
+- Axios
+- Sass/SCSS
+- ESLint
+- FontAwesome
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Requisitos previos
 
-## Expanding the ESLint configuration
+Para ejecutar el proyecto se necesita tener instalado:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Docker
+- Docker Compose
+- Git
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+No es necesario instalar Node.js, npm ni ninguna otra dependencia localmente, ya que la aplicación se ejecuta mediante Docker.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Estructura del proyecto
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```txt
+academic-grades-frontend/
+├── src/
+│   ├── api/
+│   │   ├── apiClient.ts
+│   │   ├── gradeService.ts
+│   │   ├── studentService.ts
+│   │   └── subjectService.ts
+│   ├── components/
+│   ├── pages/
+│   │   ├── DashboardPage.tsx
+│   │   ├── StudentsPage.tsx
+│   │   ├── SubjectsPage.tsx
+│   │   └── GradesPage.tsx
+│   ├── styles/
+│   │   ├── global.scss
+│   │   └── pages/
+│   │       ├── dashboard.scss
+│   │       ├── students.scss
+│   │       ├── subjects.scss
+│   │       └── grades.scss
+│   ├── types/
+│   │   ├── Grade.ts
+│   │   ├── Student.ts
+│   │   └── Subject.ts
+│   ├── App.tsx
+│   └── main.tsx
+├── public/
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+└── README.md
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Ejecución con Docker
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+El frontend se ejecuta automáticamente como parte del stack completo de la aplicación. Desde la raíz del proyecto backend, ejecutar:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+docker compose up --build
 ```
+
+Esto levanta tanto el backend como el frontend:
+
+- **Frontend**: disponible en `http://localhost:5173`
+- **Backend**: disponible en `http://localhost:8080`
+- **Base de datos**: PostgreSQL en puerto 5432
+
+## Desarrollo local (sin Docker)
+
+Si necesitas desarrollar localmente sin Docker, puedes ejecutar el frontend de forma independiente.
+
+## Configuración de la API
+
+### Con Docker (recomendado)
+
+Cuando se ejecuta con Docker, el frontend se conecta automáticamente al backend mediante la configuración interna de Docker Compose. No se requiere configuración manual.
+
+La configuración en `docker-compose.yml` utiliza:
+- `VITE_API_URL=/api`: URL relativa que permite al frontend comunicarse con el backend a través del proxy inverso
+
+### Desarrollo local
+
+El frontend se conecta al backend a través de la variable de entorno `VITE_API_URL`. 
+
+Si necesitas desarrollar localmente sin Docker, crea un archivo `.env` en la raíz del proyecto frontend:
+
+```env
+VITE_API_URL=http://localhost:8080/api
+```
+
+### Variables de entorno disponibles
+
+| Variable | Descripción | Valor (Docker) | Valor (Local) |
+|----------|-------------|----------------|---------------|
+| `VITE_API_URL` | URL base de la API | `/api` | `http://localhost:8080/api` |
+
+> **Nota**: El archivo `.env.example` en el repositorio incluye la configuración para desarrollo local.
+
+## Notas
+
+- El frontend requiere que el backend esté ejecutándose para funcionar correctamente
+- Los datos se persisten en la base de datos del backend
+- La aplicación es completamente responsiva y funciona en dispositivos móviles
