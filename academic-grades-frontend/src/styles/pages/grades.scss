@@ -1,0 +1,402 @@
+.grades-page {
+  min-height: calc(100vh - 4rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.grades-hero {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  align-items: stretch;
+  padding: 2rem;
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+  color: white;
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(112, 179, 199, 0.55),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(167, 113, 146, 0.42),
+      transparent 32%
+    ),
+    linear-gradient(135deg, #12213f, #a77192 48%, #6980b0);
+  box-shadow: 0 24px 70px rgba(18, 33, 63, 0.2);
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 360px;
+    height: 360px;
+    right: -140px;
+    top: -140px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(2.4rem, 5vw, 4.4rem);
+    line-height: 0.95;
+    letter-spacing: -0.08em;
+  }
+
+  p {
+    max-width: 660px;
+    margin: 1rem 0 0;
+    color: rgba(255, 255, 255, 0.78);
+    line-height: 1.7;
+    font-size: 1.02rem;
+  }
+}
+
+.grades-eyebrow {
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 0.8rem;
+  padding: 0.42rem 0.78rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  color: inherit;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.grades-hero__summary {
+  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.4rem;
+  border-radius: 24px;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(18px);
+
+  .grades-summary-icon {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+
+  strong {
+    font-size: 3rem;
+    line-height: 1;
+    letter-spacing: -0.06em;
+  }
+
+  span {
+    margin-top: 0.45rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 700;
+  }
+}
+
+.grades-form-card,
+.grades-table-card {
+  padding: 1.5rem;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(18, 33, 63, 0.06);
+  box-shadow: 0 24px 70px rgba(18, 33, 63, 0.1);
+  backdrop-filter: blur(18px);
+}
+
+.grades-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.25rem;
+
+  h2 {
+    margin: 0;
+    color: #12213f;
+    font-size: 1.55rem;
+    letter-spacing: -0.05em;
+  }
+
+  .grades-eyebrow {
+    background: rgba(112, 179, 199, 0.16);
+    color: #12213f;
+  }
+}
+
+.grades-card-header__icon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  color: white;
+  background: linear-gradient(135deg, #12213f, #a77192);
+  box-shadow: 0 14px 28px rgba(18, 33, 63, 0.2);
+  font-size: 1.35rem;
+}
+
+.grades-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.grades-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+
+  label {
+    color: #12213f;
+    font-weight: 800;
+  }
+
+  input,
+  select {
+    min-height: 46px;
+    border: 1px solid rgba(18, 33, 63, 0.16);
+    border-radius: 14px;
+    padding: 0.8rem 0.9rem;
+    color: #12213f;
+    background: white;
+    outline: none;
+    transition:
+      border-color 0.18s ease,
+      box-shadow 0.18s ease,
+      background-color 0.18s ease;
+
+    &::placeholder {
+      color: rgba(18, 33, 63, 0.38);
+    }
+
+    &:focus {
+      border-color: #70b3c7;
+      box-shadow: 0 0 0 4px rgba(112, 179, 199, 0.16);
+    }
+
+    &:disabled {
+      background: #f1f5f9;
+      color: #94a3b8;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.grades-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+
+  button {
+    min-height: 44px;
+    border-radius: 14px;
+    font-weight: 800;
+  }
+}
+
+.grades-feedback {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.1rem;
+  border-radius: 16px;
+  font-weight: 800;
+  box-shadow: 0 16px 34px rgba(18, 33, 63, 0.08);
+
+  svg {
+    font-size: 1.1rem;
+  }
+}
+
+.grades-feedback--success {
+  background: rgba(220, 252, 231, 0.92);
+  color: #166534;
+  border: 1px solid rgba(22, 101, 52, 0.14);
+}
+
+.grades-loading {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(112, 179, 199, 0.14);
+  color: #12213f;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.grades-filter-panel {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 20px;
+  background:
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(112, 179, 199, 0.15),
+      transparent 32%
+    ),
+    #f8fafc;
+  border: 1px solid rgba(18, 33, 63, 0.08);
+}
+
+.grades-filter-panel__header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  color: #12213f;
+  font-weight: 800;
+
+  svg {
+    color: #a77192;
+  }
+}
+
+.grades-filters-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.grades-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  article {
+    padding: 1rem;
+    border-radius: 18px;
+    background: white;
+    border: 1px solid rgba(18, 33, 63, 0.08);
+  }
+
+  span {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: rgba(18, 33, 63, 0.58);
+    font-weight: 800;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  strong {
+    color: #12213f;
+    font-size: 1.75rem;
+    letter-spacing: -0.05em;
+  }
+}
+
+.grades-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 20px;
+  border: 1px solid rgba(18, 33, 63, 0.08);
+}
+
+.grades-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+
+  th,
+  td {
+    padding: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  th {
+    background: #f8fafc;
+    color: #12213f;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  td {
+    color: #334155;
+  }
+
+  tbody tr {
+    transition: background-color 0.16s ease;
+
+    &:hover {
+      background: rgba(112, 179, 199, 0.08);
+    }
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+.grades-subject-pill,
+.grades-value-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  width: fit-content;
+  border-radius: 999px;
+  font-weight: 800;
+}
+
+.grades-subject-pill {
+  padding: 0.42rem 0.7rem;
+  background: rgba(112, 179, 199, 0.14);
+  color: #12213f;
+
+  svg {
+    color: #70b3c7;
+  }
+}
+
+.grades-value-pill {
+  min-width: 48px;
+  justify-content: center;
+  padding: 0.42rem 0.7rem;
+  background: rgba(167, 113, 146, 0.14);
+  color: #8a315f;
+}
+
+.grades-empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: rgba(18, 33, 63, 0.58);
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .grades-hero {
+    flex-direction: column;
+  }
+
+  .grades-hero__summary {
+    min-width: 100%;
+  }
+
+  .grades-form-grid,
+  .grades-filters-grid,
+  .grades-stats-row {
+    grid-template-columns: 1fr;
+  }
+
+  .grades-card-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .grades-table {
+    min-width: 860px;
+  }
+}
